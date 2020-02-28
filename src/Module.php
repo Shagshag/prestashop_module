@@ -189,8 +189,7 @@ class Module extends \Module
         // load generic translations
         if (is_object($cookie) && isset($cookie->id_lang)) {
             $iso_lang = \Language::getIsoById($cookie->id_lang);
-            $file = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR
-                .'translations'.DIRECTORY_SEPARATOR.'samdha_'.$iso_lang.'.php';
+            $file = __DIR__.'/../translations'.DIRECTORY_SEPARATOR.$iso_lang.'.php';
             if (file_exists($file)) {
                 include($file);
             }
