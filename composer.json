@@ -1,0 +1,17 @@
+{
+    "name": "samdha/commons",
+    "description": "Commons library for PrestaShop modules",
+    "type": "library",
+    "license": "AFL-3.0",
+    "authors": [
+        {
+            "name": "Georges Cubas",
+            "email": "contact@samdha.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Samdha\\Commons\\": "src/"
+        }
+    }
+}
