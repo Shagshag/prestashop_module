@@ -283,7 +283,7 @@ class Module extends \Module
                     'ps_admin_img'  => $ps_admin_img
                 ));
                 $filename = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php';
-                $template = '/views/templates/admin/samdha_error.tpl';
+                $template = 'vendor/samdha/commons/views/templates/admin/samdha_error.tpl';
                 $output = $this->display($filename, $template);
             }
         }
@@ -318,7 +318,7 @@ class Module extends \Module
                     'ps_admin_img'  => $ps_admin_img
                 ));
                 $filename = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php';
-                $template = '/views/templates/admin/samdha_warning.tpl';
+                $template = 'vendor/samdha/commons/views/templates/admin/samdha_warning.tpl';
                 $output = $this->display($filename, $template);
             }
         }
@@ -350,7 +350,7 @@ class Module extends \Module
                     'ps_admin_img'  => $ps_admin_img
                 ));
                 $filename = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php';
-                $template = '/views/templates/admin/samdha_confirmation.tpl';
+                $template = 'vendor/samdha/commons/views/templates/admin/samdha_confirmation.tpl';
                 $output = $this->display($filename, $template);
             }
         }
@@ -375,67 +375,57 @@ class Module extends \Module
 
         $templates_path = _PS_MODULE_DIR_.$this->name.'/views/templates/';
 
-        if (file_exists($templates_path.'admin/samdha_admin.tpl')
-            || file_exists($templates_path.'hook/samdha_admin.tpl')
-        ) {
-            if (file_exists($templates_path.'admin/admin.tpl')) {
-                $content = $templates_path.'admin/admin.tpl';
-            } elseif (file_exists($templates_path.'hook/admin.tpl')) {
-                $content = $templates_path.'hook/admin.tpl';
-            } else {
-                $content = false;
-            }
-            if (file_exists($templates_path.'admin/admin_footer.tpl')) {
-                $footer = $templates_path.'admin/admin_footer.tpl';
-            } elseif (file_exists($templates_path.'hook/admin_footer.tpl')) {
-                $footer = $templates_path.'hook/admin_footer.tpl';
-            } else {
-                $footer = false;
-            }
-
-            if ($this->licence->licence_number || !$this->need_licence_number) {
-                $support_url = $this->licence->getSupportURL();
-            } else {
-                $support_url = $this->licence->getLicenceURL();
-            }
-
-            $module_url = \AdminController::$currentIndex.'&configure='.urlencode($this->name).'&token='.$token;
-
-            $this->smarty->assign(array(
-                    'about_form_html'   => $about_form,
-                    'module_config'     => $this->config->getAsArray(),
-                    'module_short_name' => $this->short_name,
-                    'module_url'        => $module_url,
-                    'module_path'       => '//'.$this->samdha_tools->getHttpHost(false).$this->_path,
-                    'module_directory'  => _PS_MODULE_DIR_.$this->name,
-                    'active_tab'        => \Tools::getValue('active_tab'),
-                    'support_url'       => $support_url,
-                    'documentation_url' => $module_url.'&getDocumentation=1',
-                    'rate_url'          => $this->getRateURL(),
-                    'products_url'      => $this->getProductsURL(),
-                    'version_14'        => version_compare(_PS_VERSION_, '1.4.0.0', '>='),
-                    'version_15'        => version_compare(_PS_VERSION_, '1.5.0.0', '>='),
-                    'version_16'        => version_compare(_PS_VERSION_, '1.6.0.0', '>='),
-                    'version_17'        => version_compare(_PS_VERSION_, '1.7.0.0', '>='),
-                    'bootstrap'         => $this->bootstrap,
-                    'module_version'    => $this->version,
-
-                    'content'           => $content,
-                    'footer'            => $footer,
-                    'admin_js'          => file_exists(_PS_MODULE_DIR_.$this->name.'/views/js/admin.js')
-            ));
-            // Display Form
-
-            $filename = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php';
-            if (file_exists($templates_path.'admin/samdha_admin.tpl')) {
-                $template = '/views/templates/admin/samdha_admin.tpl';
-            } else {
-                $template = $this->hook_path.'samdha_admin.tpl';
-            }
-            $output = $this->display($filename, $template);
+        if (file_exists($templates_path.'admin/admin.tpl')) {
+            $content = $templates_path.'admin/admin.tpl';
+        } elseif (file_exists($templates_path.'hook/admin.tpl')) {
+            $content = $templates_path.'hook/admin.tpl';
         } else {
-            $output = $about_form;
+            $content = false;
         }
+        if (file_exists($templates_path.'admin/admin_footer.tpl')) {
+            $footer = $templates_path.'admin/admin_footer.tpl';
+        } elseif (file_exists($templates_path.'hook/admin_footer.tpl')) {
+            $footer = $templates_path.'hook/admin_footer.tpl';
+        } else {
+            $footer = false;
+        }
+
+        if ($this->licence->licence_number || !$this->need_licence_number) {
+            $support_url = $this->licence->getSupportURL();
+        } else {
+            $support_url = $this->licence->getLicenceURL();
+        }
+
+        $module_url = \AdminController::$currentIndex.'&configure='.urlencode($this->name).'&token='.$token;
+
+        $this->smarty->assign(array(
+                'about_form_html'   => $about_form,
+                'module_config'     => $this->config->getAsArray(),
+                'module_short_name' => $this->short_name,
+                'module_url'        => $module_url,
+                'module_path'       => '//'.$this->samdha_tools->getHttpHost(false).$this->_path,
+                'module_directory'  => _PS_MODULE_DIR_.$this->name,
+                'active_tab'        => \Tools::getValue('active_tab'),
+                'support_url'       => $support_url,
+                'documentation_url' => $module_url.'&getDocumentation=1',
+                'rate_url'          => $this->getRateURL(),
+                'products_url'      => $this->getProductsURL(),
+                'version_14'        => version_compare(_PS_VERSION_, '1.4.0.0', '>='),
+                'version_15'        => version_compare(_PS_VERSION_, '1.5.0.0', '>='),
+                'version_16'        => version_compare(_PS_VERSION_, '1.6.0.0', '>='),
+                'version_17'        => version_compare(_PS_VERSION_, '1.7.0.0', '>='),
+                'bootstrap'         => $this->bootstrap,
+                'module_version'    => $this->version,
+
+                'content'           => $content,
+                'footer'            => $footer,
+                'admin_js'          => file_exists(_PS_MODULE_DIR_.$this->name.'/views/js/admin.js')
+        ));
+        // Display Form
+
+        $filename = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php';
+        $template = 'vendor/samdha/commons/views/templates/admin/samdha_admin.tpl';
+        $output = $this->display($filename, $template);
         return $output;
     }
 
@@ -469,13 +459,9 @@ class Module extends \Module
             'contact_url'         => $contact_url
         ));
 
-        if (file_exists(_PS_MODULE_DIR_.$this->name.'/views/templates/admin/samdha_aboutform.tpl')) {
-            $template = '/views/templates/admin/samdha_aboutform.tpl';
-        } else {
-            $template = $this->hook_path.'samdha_aboutform.tpl';
-        }
-
-        $output = $this->display(_PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php', $template);
+        $filename = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php';
+        $template = 'vendor/samdha/commons/views/templates/admin/samdha_aboutform.tpl';
+        $output = $this->display($filename, $template);
 
         // for translation with Prestashop 1.x
         if (version_compare(_PS_VERSION_, '1.2.0.0', '<')) {
@@ -510,11 +496,7 @@ class Module extends \Module
             ));
 
 
-            if (file_exists(_PS_MODULE_DIR_.$this->name.'/views/templates/admin/samdha_licenceform.tpl')) {
-                $template = '/views/templates/admin/samdha_licenceform.tpl';
-            } else {
-                $template = $this->hook_path.'samdha_licenceform.tpl';
-            }
+            $template = 'vendor/samdha/commons/views/templates/admin/samdha_licenceform.tpl';
             $output = $this->display(_PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php', $template);
 
             // for translation with Prestashop 1.x
