@@ -1,5 +1,5 @@
 {
-    "name": "samdha/commons",
+    "name": "samdha/module",
     "description": "Commons library for PrestaShop modules",
     "type": "library",
     "license": "AFL-3.0",
@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Samdha\\Commons\\": "src/"
+            "Samdha\\Module\\": "src/"
         }
     }
 }

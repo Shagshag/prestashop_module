@@ -15,7 +15,7 @@
  * @category  Prestashop
  * @category  Module
  */
-namespace Samdha\Commons;
+namespace Samdha\Module;
 
 class Configuration
 {

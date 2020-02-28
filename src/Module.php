@@ -17,7 +17,7 @@
  */
 
 /* $this->l('Error while downloading module.', 'Samdha_Commons_Module'); */
-namespace Samdha\Commons;
+namespace Samdha\Module;
 
 class Module extends \Module
 {
@@ -283,7 +283,7 @@ class Module extends \Module
                     'ps_admin_img'  => $ps_admin_img
                 ));
                 $filename = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php';
-                $template = 'vendor/samdha/commons/views/templates/admin/samdha_error.tpl';
+                $template = 'vendor/samdha/module/views/templates/admin/samdha_error.tpl';
                 $output = $this->display($filename, $template);
             }
         }
@@ -318,7 +318,7 @@ class Module extends \Module
                     'ps_admin_img'  => $ps_admin_img
                 ));
                 $filename = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php';
-                $template = 'vendor/samdha/commons/views/templates/admin/samdha_warning.tpl';
+                $template = 'vendor/samdha/module/views/templates/admin/samdha_warning.tpl';
                 $output = $this->display($filename, $template);
             }
         }
@@ -350,7 +350,7 @@ class Module extends \Module
                     'ps_admin_img'  => $ps_admin_img
                 ));
                 $filename = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php';
-                $template = 'vendor/samdha/commons/views/templates/admin/samdha_confirmation.tpl';
+                $template = 'vendor/samdha/module/views/templates/admin/samdha_confirmation.tpl';
                 $output = $this->display($filename, $template);
             }
         }
@@ -404,7 +404,7 @@ class Module extends \Module
                 'module_short_name' => $this->short_name,
                 'module_url'        => $module_url,
                 'module_path'       => '//'.$this->samdha_tools->getHttpHost(false).$this->_path,
-                'vendor_path'       => '//'.$this->samdha_tools->getHttpHost(false).$this->_path.'vendor/samdha/commons/',
+                'vendor_path'       => '//'.$this->samdha_tools->getHttpHost(false).$this->_path.'vendor/samdha/module/',
                 'module_directory'  => _PS_MODULE_DIR_.$this->name,
                 'active_tab'        => \Tools::getValue('active_tab'),
                 'support_url'       => $support_url,
@@ -425,7 +425,7 @@ class Module extends \Module
         // Display Form
 
         $filename = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php';
-        $template = 'vendor/samdha/commons/views/templates/admin/samdha_admin.tpl';
+        $template = 'vendor/samdha/module/views/templates/admin/samdha_admin.tpl';
         $output = $this->display($filename, $template);
         return $output;
     }
@@ -461,7 +461,7 @@ class Module extends \Module
         ));
 
         $filename = _PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php';
-        $template = 'vendor/samdha/commons/views/templates/admin/samdha_aboutform.tpl';
+        $template = 'vendor/samdha/module/views/templates/admin/samdha_aboutform.tpl';
         $output = $this->display($filename, $template);
 
         // for translation with Prestashop 1.x
@@ -497,7 +497,7 @@ class Module extends \Module
             ));
 
 
-            $template = 'vendor/samdha/commons/views/templates/admin/samdha_licenceform.tpl';
+            $template = 'vendor/samdha/module/views/templates/admin/samdha_licenceform.tpl';
             $output = $this->display(_PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php', $template);
 
             // for translation with Prestashop 1.x
