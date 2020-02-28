@@ -72,24 +72,24 @@
     {rdelim};
 </script>
 {if $version_16 && $bootstrap}
-    <link rel="stylesheet" type="text/css" href="{$module_path|escape:'htmlall':'UTF-8'}views/css/jquery-ui-1.10.3.custom.css">
+    <link rel="stylesheet" type="text/css" href="{$vendor_path|escape:'htmlall':'UTF-8'}views/css/jquery-ui-1.10.3.custom.css">
     <!--[if lt IE 9]>
-    <link rel="stylesheet" href="{$module_path|escape:'htmlall':'UTF-8'}views/css/jquery.ui.1.10.3.ie.css">
+    <link rel="stylesheet" href="{$vendor_path|escape:'htmlall':'UTF-8'}views/css/jquery.ui.1.10.3.ie.css">
     <![endif]-->
 {else}
     <link rel="stylesheet" type="text/css" href="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/smoothness/jquery-ui.css">
 {/if}
-<link rel="stylesheet" type="text/css" href="{$module_path|escape:'htmlall':'UTF-8'}views/css/samdha_admin.css?v={$module_version|escape:'htmlall':'UTF-8'}">
+<link rel="stylesheet" type="text/css" href="{$vendor_path|escape:'htmlall':'UTF-8'}views/css/samdha_admin.css?v={$module_version|escape:'htmlall':'UTF-8'}">
 {if !$version_16}
-    <script src="{$module_path|escape:'htmlall':'UTF-8'}views/js/jquery-1.9.1.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="{$module_path|escape:'htmlall':'UTF-8'}views/css/jquery.chosen.css">
-    <script src="{$module_path|escape:'htmlall':'UTF-8'}views/js/jquery.chosen.js?v={$module_version|escape:'htmlall':'UTF-8'}" type="text/javascript"></script>
+    <script src="{$vendor_path|escape:'htmlall':'UTF-8'}views/js/jquery-1.9.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{$vendor_path|escape:'htmlall':'UTF-8'}views/css/jquery.chosen.css">
+    <script src="{$vendor_path|escape:'htmlall':'UTF-8'}views/js/jquery.chosen.js?v={$module_version|escape:'htmlall':'UTF-8'}" type="text/javascript"></script>
 {/if}
-<script src="{$module_path|escape:'htmlall':'UTF-8'}views/js/jquery-ui-1.10.4.min.js"></script>
+<script src="{$vendor_path|escape:'htmlall':'UTF-8'}views/js/jquery-ui-1.10.4.min.js"></script>
 {if $footer}
     {include file=$footer}
 {/if}
-<script src="{$module_path|escape:'htmlall':'UTF-8'}views/js/samdha_admin.js?v={$module_version|escape:'htmlall':'UTF-8'}" type="text/javascript"></script>
+<script src="{$vendor_path|escape:'htmlall':'UTF-8'}views/js/samdha_admin.js?v={$module_version|escape:'htmlall':'UTF-8'}" type="text/javascript"></script>
 {if $admin_js}
     <script src="{$module_path|escape:'htmlall':'UTF-8'}views/js/admin.js?v={$module_version|escape:'htmlall':'UTF-8'}" type="text/javascript"></script>
 {/if}

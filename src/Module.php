@@ -404,6 +404,7 @@ class Module extends \Module
                 'module_short_name' => $this->short_name,
                 'module_url'        => $module_url,
                 'module_path'       => '//'.$this->samdha_tools->getHttpHost(false).$this->_path,
+                'vendor_path'       => '//'.$this->samdha_tools->getHttpHost(false).$this->_path.'vendor/samdha/commons/',
                 'module_directory'  => _PS_MODULE_DIR_.$this->name,
                 'active_tab'        => \Tools::getValue('active_tab'),
                 'support_url'       => $support_url,
