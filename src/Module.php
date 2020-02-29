@@ -185,6 +185,7 @@ class Module extends \Module
                 );
             }
         }
+        $this->context->smarty->registerPlugin('function', 'samdha_l', 'smartyTranslate');
 
         // load generic translations
         if (is_object($cookie) && isset($cookie->id_lang)) {

@@ -26,21 +26,21 @@
                     {/foreach}
                 {/if}
                 <li><a rel="iframe" id="tabHelp" href="{$documentation_url|escape:'htmlall':'UTF-8'}">
-                    <span> {l s='Documentation' mod='samdha'}</span>
+                    <span> {samdha_l s='Documentation' mod='samdha'}</span>
                 </a></li>
                 <li><a id="tabAbout" href="#samdha_about">
-                    <span> {l s='About' mod='samdha'}</span>
+                    <span> {samdha_l s='About' mod='samdha'}</span>
                 </a></li>
                 {if $version_16 && ((isset($rate_url) && $rate_url) || (isset($products_url) && $products_url))}
                     <div class="samdha_adv">
                         {if isset($support_url) && $support_url}
-                            <a class="samdha_support" target="_blank" href="{$support_url|escape:'htmlall':'UTF-8'}">{l s='Support' mod='samdha'}</a>
+                            <a class="samdha_support" target="_blank" href="{$support_url|escape:'htmlall':'UTF-8'}">{samdha_l s='Support' mod='samdha'}</a>
                         {/if}
                         {if isset($rate_url) && $rate_url}
-                            <a class="samdha_rating" target="_blank" href="{$rate_url|escape:'htmlall':'UTF-8'}">{l s='Rate this module' mod='samdha'}</a>
+                            <a class="samdha_rating" target="_blank" href="{$rate_url|escape:'htmlall':'UTF-8'}">{samdha_l s='Rate this module' mod='samdha'}</a>
                         {/if}
                         {if isset($products_url) && $products_url}
-                            <a class="samdha_products" target="_blank" href="{$products_url|escape:'htmlall':'UTF-8'}">{l s='Other modules' mod='samdha'}</a>
+                            <a class="samdha_products" target="_blank" href="{$products_url|escape:'htmlall':'UTF-8'}">{samdha_l s='Other modules' mod='samdha'}</a>
                         {/if}
                     </div>
                 {/if}
@@ -50,7 +50,7 @@
             {/if}
             <div id="samdha_about" class="col-lg-10 col-md-9">
                 <div class="panel">
-                    <h3 class="tab"> <i class="icon-info"></i> {l s='About' mod='samdha'}</h3>
+                    <h3 class="tab"> <i class="icon-info"></i> {samdha_l s='About' mod='samdha'}</h3>
                     {$about_form_html}
                 </div>
             </div>

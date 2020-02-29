@@ -10,14 +10,14 @@
 * @license    commercial license see license.txt
 *}
 <p style="font-size: 1.5em; font-weight: bold; padding-bottom: 0"><img src="{$module_path|escape:'htmlall':'UTF-8'}logo.png" alt="{$module_display_name|escape:'htmlall':'UTF-8'}" style="float: left; padding-right: 1em"/>{$module_display_name|escape:'htmlall':'UTF-8'}</p>
-<p style="clear: left;">{l s='Thanks for installing this module on your website.' mod='samdha'}</p>
+<p style="clear: left;">{samdha_l s='Thanks for installing this module on your website.' mod='samdha'}</p>
 {if $description_big_html}{$description_big_html}{else}<p>{$description|escape:'htmlall':'UTF-8'}</p>{/if}
 <p>
-	{l s='Made with ❤ by' mod='samdha'} <a style="color: #7ba45b; text-decoration: underline;" href="{$home_url|escape:'htmlall':'UTF-8'}">Samdha</a>{l s=', which helps you develop your e-commerce site.' mod='samdha'}
+	{samdha_l s='Made with ❤ by' mod='samdha'} <a style="color: #7ba45b; text-decoration: underline;" href="{$home_url|escape:'htmlall':'UTF-8'}">Samdha</a>{samdha_l s=', which helps you develop your e-commerce site.' mod='samdha'}
 </p>
 <p>
-	<span style="float: right; opacity: .2; font-size: 9px; padding-top: 5px;"><abbr title="{l s='version' mod='samdha'}">v</abbr>{$module_version|escape:'htmlall':'UTF-8'}</span>
-	<a href="{$contact_url|escape:'htmlall':'UTF-8'}" id="samdha_contact"><i class="icon-envelope-o"></i> {l s='Contact' mod='samdha'}</a>
+	<span style="float: right; opacity: .2; font-size: 9px; padding-top: 5px;"><abbr title="{samdha_l s='version' mod='samdha'}">v</abbr>{$module_version|escape:'htmlall':'UTF-8'}</span>
+	<a href="{$contact_url|escape:'htmlall':'UTF-8'}" id="samdha_contact"><i class="icon-envelope-o"></i> {samdha_l s='Contact' mod='samdha'}</a>
 </p>
 
 {if !$version_14}
