@@ -45,9 +45,9 @@ class Module extends \Module
     {
         /* Backward compatibility */
         $backward_file = __DIR__.'/../backward_compatibility/backward.php';
-        // if (version_compare(_PS_VERSION_, '1.5.0.0', '<') && file_exists($backward_file)) {
+        if (version_compare(_PS_VERSION_, '1.5.0.0', '<') && file_exists($backward_file)) {
             require($backward_file);
-        // }
+        }
 
         parent::__construct();
         $this->samdha_tools = new Tools($this);
