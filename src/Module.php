@@ -52,15 +52,9 @@ class Module extends \Module
         parent::__construct();
         $this->samdha_tools = new Tools($this);
         $this->config = new Configuration($this);
-        $config_file = _PS_MODULE_DIR_.$this->name.'/config/config.ini';
-        $config_file_old = _PS_MODULE_DIR_.$this->name.'/config/config.ini.php';
+        $config_file = __DIR__.'/../config/config.ini';
         if (file_exists($config_file)) {
             $configs = parse_ini_file($config_file);
-            foreach ($configs as $key => $value) {
-                $this->$key = $value;
-            }
-        } elseif (file_exists($config_file_old)) {
-            $configs = parse_ini_file($config_file_old);
             foreach ($configs as $key => $value) {
                 $this->$key = $value;
             }
