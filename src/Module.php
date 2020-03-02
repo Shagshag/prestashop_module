@@ -28,7 +28,6 @@ class Module extends \Module
     public $config_arrays_keys = array();
     public $config_global = false; /* get configuration by shop */
     public $short_name = 'samdha';
-    public $need_licence_number = true;
     public $description_big = '';
     public $id_addons = false;
 
@@ -40,7 +39,6 @@ class Module extends \Module
     public $toolbar_btn = array();
     public $samdha_tools;
     public $config;
-    public $licence;
     public $bootstrap = true;
 
     public function __construct()
@@ -54,7 +52,6 @@ class Module extends \Module
         parent::__construct();
         $this->samdha_tools = new Tools($this);
         $this->config = new Configuration($this);
-        $this->licence = new Licence($this);
         $config_file = _PS_MODULE_DIR_.$this->name.'/config/config.ini';
         $config_file_old = _PS_MODULE_DIR_.$this->name.'/config/config.ini.php';
         if (file_exists($config_file)) {
@@ -69,7 +66,7 @@ class Module extends \Module
             }
         } else {
             $this->support_url = 'https://addons.prestashop.com/contact-community.php?id_product=%d&content_only=1';
-            $this->support_url .= '&licence_number=%s&lang=%s#contact-form';
+            $this->support_url .= '&lang=%s#contact-form';
             $this->home_url = 'https://addons.prestashop.com/%s/2_community?contributor=5716&utm_source=module';
             $this->home_url .= '&utm_medium=prestashop&utm_content=homelink&utm_campaign=%s';
             $this->contact_url = 'https://addons.prestashop.com/contact-community.php?id_product=%d&utm_source=module';
@@ -77,12 +74,7 @@ class Module extends \Module
             $this->rate_url = 'http://addons.prestashop.com/ratings.php';
             $this->products_url = 'https://addons.prestashop.com/%s/2_community-developer?contributor=5716';
             $this->update_url = false;
-            $this->licence_url = false;
-            $this->licence_url_https = false;
             $this->rpc_url = false;
-        }
-        if (!property_exists($this, 'licence_url') || !$this->licence_url) {
-            $this->need_licence_number = false;
         }
         $this->hook_path = (version_compare(_PS_VERSION_, '1.5.0.0', '<')?'/views/templates/hook/':'');
     }
@@ -110,58 +102,9 @@ class Module extends \Module
             \Tools::redirectAdmin($url);
         }
 
-        if (\Tools::isSubmit('saveLicence')) {
-            $this->licence->saveLicence(\Tools::getValue('licence_number'));
-            \Tools::redirectAdmin($module_url.'&conf=6');
-        }
-
-        if (\Tools::getValue('updateModule')) {
-            try {
-                $this->licence->update();
-                \Tools::redirectAdmin($module_url.'&postUpdateModule=1');
-            } catch (\Exception $e) {
-                $this->errors[] = $this->l($e->getMessage(), 'Module');
-                $this->errors[] = $this->l('Can\'t update the module.', 'Module');
-            }
-        }
-
         if (\Tools::getValue('postUpdateModule')) {
             $this->postUpdateModule();
             \Tools::redirectAdmin($module_url.'&conf=4');
-        }
-
-        if ($this->need_licence_number && $this->samdha_tools->canAccessInternet()) {
-            // for translation with Prestashop 1.x
-            if (version_compare(_PS_VERSION_, '1.2.0.0', '<')) {
-                $tmp_page = $this->page;
-                $this->page = 'Module';
-            }
-
-            if (!$this->licence->checkLicence()) {
-                if ($license_number = \Configuration::get($this->short_name.'_licence')) {
-                    $message = sprintf(
-                        $this->l('The current license number "%s" is not valid for this domain.', 'Module'),
-                        $license_number
-                    );
-                    $message .= ' <a class="module_help"
-                        href="http://prestawiki.samdha.net/wiki/Samdha:faq#wrong_license">?</a>';
-                    $this->errors[] = $message;
-                }
-                $message = '<a style="text-decoration: none;" href="'
-                    .$this->licence->getLicenceURL().'" target="_blank" class="module_support">'
-                    .$this->l('This module is not registered. Why do not do it now ? It\'s free.', 'Module')
-                    .'</a> <a class="module_help" href="http://prestawiki.samdha.net/wiki/Samdha:faq#register">?</a>';
-                $this->warnings[] = $message;
-            } elseif ($this->licence->checkModuleVersion() == 'NEED_UPDATE') {
-                $this->warnings[] = $this->l('There is a new version of this module. you can', 'Module')
-                    .' <a style="text-decoration: underline;" href="'
-                    .$module_url.'&updateModule=1">'.$this->l('update now', 'Module').'</a>.';
-            }
-
-            // for translation with Prestashop 1.x
-            if (version_compare(_PS_VERSION_, '1.2.0.0', '<')) {
-                $this->page = $tmp_page;
-            }
         }
     }
 
@@ -233,21 +176,6 @@ class Module extends \Module
 
     private function displayToolBar($current_index, $token)
     {
-        if ($this->need_licence_number && $this->samdha_tools->canAccessInternet()) {
-            if (!$this->licence->checkLicence()) {
-                $this->toolbar_btn['register'] = array(
-                    'href' => $this->licence->getLicenceURL(),
-                    'desc' => $this->l('Register this module', 'Module'),
-                    'target' => true
-                );
-            } elseif ($this->licence->checkModuleVersion() == 'NEED_UPDATE') {
-                $this->toolbar_btn['update'] = array(
-                    'href' => $current_index.'&amp;configure='.$this->name.'&amp;updateModule=1&amp;token='.$token,
-                    'desc' => $this->l('Update this module now', 'Module')
-                );
-            }
-        }
-
         $back = $current_index.'&token='.$this->context->controller->token.'&module_name='.$this->name;
         $back .= '&tab_module='.$this->tab.'&anchor=anchor'.\Tools::ucfirst($this->name);
         $this->toolbar_btn['back'] = array(
@@ -371,7 +299,6 @@ class Module extends \Module
         }
 
         $about_form = $this->displayAboutForm();
-        $about_form .= $this->displayRegisterForm($token, true);
 
         $templates_path = _PS_MODULE_DIR_.$this->name.'/views/templates/';
 
@@ -390,11 +317,7 @@ class Module extends \Module
             $footer = false;
         }
 
-        if ($this->licence->licence_number || !$this->need_licence_number) {
-            $support_url = $this->licence->getSupportURL();
-        } else {
-            $support_url = $this->licence->getLicenceURL();
-        }
+        $support_url = $this->getSupportURL();
 
         $module_url = \AdminController::$currentIndex.'&configure='.urlencode($this->name).'&token='.$token;
 
@@ -428,6 +351,16 @@ class Module extends \Module
         $template = 'vendor/samdha/module/views/templates/admin/samdha_admin.tpl';
         $output = $this->display($filename, $template);
         return $output;
+    }
+
+    public function getSupportURL()
+    {
+        $iso_lang = \Language::getIsoById($this->context->cookie->id_lang);
+        return sprintf(
+            $this->support_url,
+            $this->id_addons,
+            $iso_lang
+        );
     }
 
     public function displayAboutForm()
@@ -469,42 +402,6 @@ class Module extends \Module
             $this->page = $tmp_page;
         }
 
-        return $output;
-    }
-
-    /** Licence management * */
-    public function displayRegisterForm($token, $space = true)
-    {
-        $smarty = $this->context->smarty;
-        $currentIndex = \AdminController::$currentIndex;
-
-        $output = '';
-        if ($this->need_licence_number && $this->samdha_tools->canAccessInternet()) {
-            // for translation with Prestashop 1.x
-            if (version_compare(_PS_VERSION_, '1.2.0.0', '<')) {
-                $tmp_page = $this->page;
-                $this->page = 'Module';
-            }
-
-            $smarty->assign(array(
-                'space'          => $space,
-                'registered'     => $this->licence->checkLicence(),
-                'licence_url'    => $this->licence->getLicenceURL(),
-                'licence_number' => $this->licence->licence_number,
-                'module_url'     => $currentIndex.'&configure='.urlencode($this->name).'&token='.$token,
-                'content_html'   => $this->licence->getBoxContent(),
-                'bootstrap'      => $this->bootstrap,
-            ));
-
-
-            $template = 'vendor/samdha/module/views/templates/admin/samdha_licenceform.tpl';
-            $output = $this->display(_PS_MODULE_DIR_.$this->name.DIRECTORY_SEPARATOR.$this->name.'.php', $template);
-
-            // for translation with Prestashop 1.x
-            if (version_compare(_PS_VERSION_, '1.2.0.0', '<')) {
-                $this->page = $tmp_page;
-            }
-        }
         return $output;
     }
 
