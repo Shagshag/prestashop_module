@@ -67,8 +67,6 @@ class Module extends \Module
             $this->contact_url .= '&utm_medium=prestashop&utm_content=contactlink&utm_campaign=%s#contact-form';
             $this->rate_url = 'http://addons.prestashop.com/ratings.php';
             $this->products_url = 'https://addons.prestashop.com/%s/2_community-developer?contributor=5716';
-            $this->update_url = false;
-            $this->rpc_url = false;
         }
         $this->hook_path = (version_compare(_PS_VERSION_, '1.5.0.0', '<')?'/views/templates/hook/':'');
     }
@@ -311,8 +309,6 @@ class Module extends \Module
             $footer = false;
         }
 
-        $support_url = $this->getSupportURL();
-
         $module_url = \AdminController::$currentIndex.'&configure='.urlencode($this->name).'&token='.$token;
 
         $this->smarty->assign(array(
@@ -324,7 +320,7 @@ class Module extends \Module
                 'vendor_path'       => '//'.$this->samdha_tools->getHttpHost(false).$this->_path.'vendor/samdha/module/',
                 'module_directory'  => _PS_MODULE_DIR_.$this->name,
                 'active_tab'        => \Tools::getValue('active_tab'),
-                'support_url'       => $support_url,
+                'support_url'       => $this->getSupportURL(),
                 'documentation_url' => $module_url.'&getDocumentation=1',
                 'rate_url'          => $this->getRateURL(),
                 'products_url'      => $this->getProductsURL(),

@@ -31,7 +31,7 @@
                 <li><a id="tabAbout" href="#samdha_about">
                     <span> {samdha_l s='About' mod='samdha'}</span>
                 </a></li>
-                {if $version_16 && ((isset($rate_url) && $rate_url) || (isset($products_url) && $products_url))}
+                {if $version_16 && ((isset($rate_url) && $rate_url) || (isset($products_url) && $products_url) || (isset($support_url) && $support_url))}
                     <div class="samdha_adv">
                         {if isset($support_url) && $support_url}
                             <a class="samdha_support" target="_blank" href="{$support_url|escape:'htmlall':'UTF-8'}">{samdha_l s='Support' mod='samdha'}</a>
