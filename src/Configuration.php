@@ -174,6 +174,15 @@ class Configuration
         if (array_key_exists($key, $this->datas)) {
             $value = $this->datas[$key];
             if (in_array($key, $this->module->config_arrays_keys)) {
+                // fill missing keys
+                $value += array_fill_keys(
+                    range(
+                        0,
+                        max(array_keys($value))
+                    ),
+                    ''
+                );
+                ksort($value);
                 $value = str_replace(',', self::COMA_REPLACE, $value);
                 $value = implode(',', $value);
             }
